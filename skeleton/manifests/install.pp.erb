@@ -1,9 +1,17 @@
 # == Class <%= metadata.name %>::install
 #
-class <%= metadata.name %>::install {
+class <%= metadata.name %>::install (
+  $package_names = $<%= metadata.name %>::params::package_names,
+  $gem_names = $<%= metadata.name %>::params::gem_names,
+){
   include <%= metadata.name %>::params
 
   package { $<%= metadata.name %>::params::package_name:
     ensure => present,
+  }
+
+  package { $gem_names:
+    ensure   => 'installed',
+    provider => 'gem',
   }
 }

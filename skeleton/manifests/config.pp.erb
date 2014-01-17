@@ -2,5 +2,8 @@
 #
 # This class is called from <%= metadata.name %>
 #
-class <%= metadata.name %>::config {
+class <%= metadata.name %>::config (
+  $variable_name  = hiera('<%= metadata.name %>::config::variable_name'), 
+  $variable_name_2 = hiera('<%= metadata.name %>::config::variable_name_2'),
+) {
 }

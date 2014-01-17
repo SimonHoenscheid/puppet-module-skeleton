@@ -7,6 +7,14 @@
 # [*sample_parameter*]
 #   Explanation of what this parameter affects and what it defaults to.
 #
+# === Authors
+#
+# Simon Hoenscheid <simon@hoenscheid-itconsulting.com>
+#
+# === Copyright
+#
+# Copyright 2013 Simon Hoenscheid <simon@hoenscheid-itconsulting.com>
+#
 class <%= metadata.name %> (
 ) inherits <%= metadata.name %>::params {
 
@@ -15,5 +23,8 @@ class <%= metadata.name %> (
   class { '<%= metadata.name %>::install': } ->
   class { '<%= metadata.name %>::config': } ~>
   class { '<%= metadata.name %>::service': } ->
+# class {"${module_name}::firewall": } ~>
+# class {"${module_name}::externalsystems": } ~>
+# class {"${module_name}::monitoring": } ~>
   Class['<%= metadata.name %>']
 }
