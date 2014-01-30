@@ -6,7 +6,7 @@ class <%= metadata.name %>::install (
 ){
   include <%= metadata.name %>::params
 
-  package { $<%= metadata.name %>::params::package_name:
+  package { $package_names:
     ensure => present,
   }
 
