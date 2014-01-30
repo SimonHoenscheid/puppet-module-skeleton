@@ -7,12 +7,12 @@ class <%= metadata.name %>::params {
   $gem_names = hiera('<%= metadata.name %>::install::gem_names')
   case $::osfamily {
     'Debian': {
-      $package_names = hiera('<%= metadata.name %>::install::package_names_debian')
-      $service_name = hiera('<%= metadata.name %>::service::service_name_debian')
+      $package_names = hiera_array('<%= metadata.name %>::install::package_names_debian')
+      $service_name  = hiera('<%= metadata.name %>::service::service_name_debian')
     }
     'RedHat', 'Amazon': {
-      $package_names = hiera('<%= metadata.name %>::install::package_names_redhat')
-      $service_name = hiera('<%= metadata.name %>::service::service_name_redhat')
+      $package_names = hiera_array('<%= metadata.name %>::install::package_names_redhat')
+      $service_name  = hiera('<%= metadata.name %>::service::service_name_redhat')
     }
     default: {
       fail("${::operatingsystem} not supported")

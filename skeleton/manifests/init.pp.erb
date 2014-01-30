@@ -23,8 +23,9 @@ class <%= metadata.name %> (
   class { '<%= metadata.name %>::install': } ->
   class { '<%= metadata.name %>::config': } ~>
   class { '<%= metadata.name %>::service': } ->
-# class {"${module_name}::firewall": } ~>
-# class {"${module_name}::externalsystems": } ~>
-# class {"${module_name}::monitoring": } ~>
+# class { '<%= metadata.name %>::firewall': } ~>
+# class { '<%= metadata.name %>::externalsystems': } ~>
+# class { '<%= metadata.name %>::monitoring': } ~>
+# class { '<%= metadata.name %>::backup': } ~>
   Class['<%= metadata.name %>']
 }

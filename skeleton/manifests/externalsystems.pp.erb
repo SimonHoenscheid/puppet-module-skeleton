@@ -1,0 +1,8 @@
+# == Class <%= metadata.name %>::externalsystems
+# This class is meant to be called from <%= metadata.name %>
+# It configures external nodes, if affected by the local changes e.g. adds a new webserver to the loadbalancer cluster
+class <%= metadata.name %>::externalsystems (
+  $variable_name = hiera('<%= metadata.name %>::externalsystems::variable_name'),
+) {
+  include <%= metadata.name %>::params
+}
