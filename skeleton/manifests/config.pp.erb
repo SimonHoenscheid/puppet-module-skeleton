@@ -3,7 +3,7 @@
 # This class is called from <%= metadata.name %>
 #
 class <%= metadata.name %>::config (
-  $variable_name  = hiera('<%= metadata.name %>::config::variable_name'), 
-  $variable_name_2 = hiera('<%= metadata.name %>::config::variable_name_2'),
-) {
+  $variable  = $<%= metadata.name %>::variable, #overwrite this value passing parameters to the base class <%= metadata.name %> using hiera! 
+){
+
 }

@@ -1,19 +1,20 @@
-require 'test/unit'
-require 'mocha/setup'
-require 'rspec-puppet'
 require 'puppetlabs_spec_helper/module_spec_helper'
+require 'rspec-puppet-facts'
 
-fixture_path = File.expand_path(File.join(__FILE__, '..', 'fixtures'))
+include RspecPuppetFacts
 
-# include common helpers
-support_path = File.expand_path(File.join(File.dirname(__FILE__), '..', 'spec/support/*.rb'))
-Dir[support_path].each { |f| require f }
+require 'simplecov'
+require 'simplecov-console'
 
-RSpec.configure do |c|
-  c.config = '/doesnotexist'
-  c.manifest_dir = File.join(fixture_path, 'manifests')
-  c.hiera_config = File.join(fixture_path, 'hiera/hiera.yaml')
-  c.mock_with :mocha
+SimpleCov.start do
+  add_filter '/spec'
+  add_filter '/vendor'
+  formatter SimpleCov::Formatter::MultiFormatter.new([
+    SimpleCov::Formatter::HTMLFormatter,
+    SimpleCov::Formatter::Console
+  ])
 end
 
-at_exit { RSpec::Puppet::Coverage.report! }
+RSpec.configure do |c|
+  c.hiera_config = File.expand_path(File.join(__FILE__, '../fixtures/hiera.yaml'))
+end

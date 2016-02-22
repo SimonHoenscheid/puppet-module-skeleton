@@ -1,17 +1,9 @@
 # == Class <%= metadata.name %>::install
 #
+# This class is called from <%= metadata.name %>
+#
 class <%= metadata.name %>::install (
-  $package_names = $<%= metadata.name %>::params::package_names,
-  $gem_names = $<%= metadata.name %>::params::gem_names,
+  $variable  = $<%= metadata.name %>::variable, #overwrite this value passing parameters to the base class <%= metadata.name %> using hiera! 
 ){
-  include <%= metadata.name %>::params
 
-  package { $package_names:
-    ensure => present,
-  }
-
-  package { $gem_names:
-    ensure   => 'installed',
-    provider => 'gem',
-  }
 }

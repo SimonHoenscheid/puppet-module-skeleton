@@ -2,30 +2,61 @@
 #
 # Full description of class <%= metadata.name %> here.
 #
-# === Parameters
+# Parameters
+# ----------
 #
-# [*sample_parameter*]
-#   Explanation of what this parameter affects and what it defaults to.
+# Document parameters here.
 #
-# === Authors
+# * `sample parameter`
+# Explanation of what this parameter affects and what it defaults to.
+# e.g. "Specify one or more upstream ntp servers as an array."
 #
-# Simon Hoenscheid <simon@hoenscheid-itconsulting.com>
+# Variables
+# ----------
 #
-# === Copyright
+# Here you should define a list of variables that this module would require.
 #
-# Copyright 2013 Simon Hoenscheid <simon@hoenscheid-itconsulting.com>
+# * `sample variable`
+#  Explanation of how this variable affects the function of this class and if
+#  it has a default. e.g. "The parameter enc_ntp_servers must be set by the
+#  External Node Classifier as a comma separated list of hostnames." (Note,
+#  global variables should be avoided in favor of class parameters as
+#  of Puppet 2.6.)
+#
+# Examples
+# ---------
+#
+# @example
+#    class { '<%= metadata.name %>':
+#      servers => [ 'pool.ntp.org', 'ntp.local.company.com' ],
+#    }
+#
+# Authors
+# --------
+#
+# <%= metadata.author %>
+#
+# Copyright
+# ---------
+#
+# Copyright <%= metadata.author %>
 #
 class <%= metadata.name %> (
-) inherits <%= metadata.name %>::params {
+	Validate $parameter = $<%= metadata.name %>::params::parameter
+) {
+	
+	#add classes if needed
+	include '::<%= metadata.name %>::params'
+	include '::<%= metadata.name %>::install'
+	include '::<%= metadata.name %>::config'
+	include '::<%= metadata.name %>::service'
 
-  # validate parameters here
+	anchor { '<%= metadata.name %>::begin': }
+  anchor { '<%= metadata.name %>::end': }
 
-  class { '<%= metadata.name %>::install': } ->
-  class { '<%= metadata.name %>::config': } ~>
-  class { '<%= metadata.name %>::service': } ->
-# class { '<%= metadata.name %>::firewall': } ~>
-# class { '<%= metadata.name %>::externalsystems': } ~>
-# class { '<%= metadata.name %>::monitoring': } ~>
-# class { '<%= metadata.name %>::backup': } ~>
-  Class['<%= metadata.name %>']
+  Anchor['<%= metadata.name %>::begin']
+  -> Class['::<%= metadata.name %>::install']
+  -> Class['::<%= metadata.name %>::config']
+  ~> Class['::<%= metadata.name %>::service']
+  -> Anchor['<%= metadata.name %>::end']	
 }
